@@ -10,9 +10,6 @@ import org.yearup.data.ProductDao;
 import org.yearup.models.Category;
 import org.yearup.models.Product;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.util.ArrayList;
 import java.util.List;
 
 // add the annotations to make this a REST controller
