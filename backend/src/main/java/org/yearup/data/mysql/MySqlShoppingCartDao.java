@@ -83,9 +83,6 @@ public class MySqlShoppingCartDao implements ShoppingCartDao
 
     @Override
     public void addToCart(int userId, int productId, int quantity) {
-//       String sql = " INSERT INTO shopping_cart (user_id, product_id, quantity) " +
-//        "VALUES (?, ?, ?) "+
-//        "ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)";
 
         String sql = """
     MERGE INTO shopping_cart AS target
@@ -99,13 +96,6 @@ public class MySqlShoppingCartDao implements ShoppingCartDao
         INSERT (user_id, product_id, quantity)
         VALUES (source.user_id, source.product_id, source.quantity);
 """;
-//        String sql = "MERGE INTO shopping_cart AS target " +
-//                "USING (SELECT ? AS user_id, ? AS product_id, ? AS quantity) AS source " +
-//                "ON target.user_id = source.user_id AND target.product_id = source.product_id " +
-//                "WHEN MATCHED THEN " +
-//                "    UPDATE SET quantity = target.quantity + source.quantity " +
-//                "WHEN NOT MATCHED THEN " +
-//                "    INSERT (user_id, product_id, quantity) VALUES (source.user_id, source.product_id, source.quantity);";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {

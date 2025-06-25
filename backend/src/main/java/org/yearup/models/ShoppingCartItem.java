@@ -63,14 +63,4 @@ public class ShoppingCartItem
         return subTotal.subtract(discountAmount);
     }
 
-//    public BigDecimal getLineTotal()
-//    {
-//        BigDecimal basePrice = product.getPrice();
-//        BigDecimal quantity = new BigDecimal(this.quantity);
-//
-//        BigDecimal subTotal = basePrice.multiply(quantity);
-//        BigDecimal discountAmount = subTotal.multiply(discountPercent);
-//
-//        return subTotal.subtract(discountAmount);
-//    }
 }
