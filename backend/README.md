@@ -39,6 +39,8 @@ This project is a RESTful backend API for an e-commerce platform called **EasySh
 
 ---
 
+
+
 ## 🧪 Testing with Postman
 
 A Postman collection was created with:
@@ -57,6 +59,19 @@ A Postman collection was created with:
 - **Postman**
 - **Azure Data Studio**
 - **Maven**
+
+---
+
+## 📸 Screenshots
+
+<img width="1018" alt="main" src="https://github.com/user-attachments/assets/bfdd2707-efa5-43c2-bfaf-c158159284e5" />
+
+<img width="1018" alt="cart" src="https://github.com/user-attachments/assets/45f2620a-7180-4e07-8cda-2e418096b502" />
+
+<img width="1018" alt="filter" src="https://github.com/user-attachments/assets/ad87fa9e-0dbf-4818-914c-c1a827a75bcd" />
+
+<img width="2190" alt="postmanTest" src="https://github.com/user-attachments/assets/9e133807-adca-4ef0-85d3-ed5520fff2b2" />
+
 
 ---
 
