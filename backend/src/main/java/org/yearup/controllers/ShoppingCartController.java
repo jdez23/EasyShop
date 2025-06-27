@@ -13,6 +13,8 @@ import org.yearup.models.ShoppingCart;
 import org.yearup.models.ShoppingCartItem;
 import org.yearup.models.User;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
 
 // convert this class to a REST controller
@@ -38,6 +40,7 @@ public class ShoppingCartController
 
     // each method in this controller requires a Principal object as a parameter
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ShoppingCart getCart(Principal principal)
     {
         try
@@ -55,6 +58,7 @@ public class ShoppingCartController
     // add a POST method to add a product to the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be added
     @PostMapping("/products/{productId}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ShoppingCart addProductToCart(@PathVariable int productId, Principal principal) {
         try {
             String username = principal.getName();
@@ -71,6 +75,7 @@ public class ShoppingCartController
     // https://localhost:8080/cart/products/15 (15 is the productId to be updated)
     // the BODY should be a ShoppingCartItem - quantity is the only value that will be updated
     @PutMapping("/products/{productId}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public void updateCartItem(@PathVariable int productId, @RequestBody ShoppingCartItem item, Principal principal) {
         try {
             String username = principal.getName();
@@ -85,15 +90,17 @@ public class ShoppingCartController
     // https://localhost:8080/cart
     // POST /cart/products/{productId}
     @DeleteMapping
-    public ResponseEntity<Void> clearCart(Principal principal) {
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public void clearCart(Principal principal, HttpServletResponse response) throws IOException {
         try {
             String username = principal.getName();
             User user = userDao.getByUserName(username);
-            shoppingCartDao.clearCart(user.getId());
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to clear cart.");
+            if (user == null) {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "User not found.");
+                return;
+            }
+            shoppingCartDao.clearCart(user.getId());} catch (Exception e) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to clear shopping cart.");
         }
     }
-
 }
